@@ -34,31 +34,32 @@ Traditional LLMs lack access to real-time, proprietary, or niche knowledge unles
 
 **🚀 Setup Instructions**
 
-1. Clone the Repository
+# **1. Clone the Repository**
 
-**2. Set Up Python Virtual Environment**
+# **2. Set Up Python Virtual Environment**
 
-python
-Copy
-Edit
-# Create a virtual environment
+Create a virtual environment
 python -m venv venv
 
-# Activate the environment
-source venv/bin/activate       # Windows: venv\Scripts\activate
+**Activate the environment**
 
-# Install required dependencies
+source venv/bin/activate      
+Windows: venv\Scripts\activate
+
+**Install required dependencies**
+
 pip install -r requirements.txt
 
-**3. Start the LLaMA Model with Ollama**
+# **3. Start the LLaMA Model with Ollama**
 
-# Make sure Ollama is installed
+Make sure Ollama is installed
 ollama run llama3
 
-**4. Prepare the Knowledge Base**
+# 4. Prepare the Knowledge Base
 
-# Place your documents (PDF or TXT) into the 'knowledge_docs/' folder
-# Then run the following script to embed and store vectors in ChromaDB
+**Place your documents (PDF or TXT) into the 'knowledge_docs/' folder
+Then run the following script to embed and store vectors in ChromaDB**
+
 python ragcreate.py
 
 🔹 This will:
@@ -67,9 +68,9 @@ Load and embed your documents
 
 Persist the vectors into the chroma_db/ folder
 
-**5. Ask Questions via the RAG System**
+# 5. Ask Questions via the RAG System
 
-# Run this to start querying the knowledge base
+**Run this to start querying the knowledge base**
 python ragrun.py
 
 💬 **Sample Queries**
@@ -86,17 +87,19 @@ The system uses ChromaDB to find contextually relevant chunks and feeds them int
 
 ✅**Features**
 
-🔍 **Natural language querying over local files**
+🔍 Natural language querying over local files
 
-🧠 **Context-aware responses powered by LLaMA**
+🧠 Context-aware responses powered by LLaMA
 
-📦 **Local vector storage with ChromaDB (no cloud dependency)**
+📦 Local vector storage with ChromaDB (no cloud dependency)
 
-🧪 **Prompt engineering using PromptTemplate for enhanced precision**
+🧪 Prompt engineering using PromptTemplate for enhanced precision
 
-💾 **Modular code split into creation (ragcreate.py) and querying (ragrun.py)**
+💾 Modular code split into creation (ragcreate.py) and querying (ragrun.py)
+
 
 **🛠️ Troubleshooting**
+
 
 Model errors? Make sure transformers, accelerate, and sentence-transformers are updated.
 
