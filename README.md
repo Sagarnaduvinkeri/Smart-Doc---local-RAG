@@ -1,100 +1,127 @@
-**🧠 Local Retrieval-Augmented Generation (RAG) System with LLaMA 3.2**
-Built by Sagar Naduvinkeri
+**🧠 Local Retrieval-Augmented Generation (RAG) System using LLaMA 3.2, HuggingFace, and ChromaDB**
 
-**📌 **Overview****
-This project demonstrates how to build a local Retrieval-Augmented Generation (RAG) system that allows natural language querying over custom documents without writing SQL. Using LLaMA 3.2, HuggingFace embeddings, and ChromaDB, we create a lightweight yet powerful system that enhances language model responses with domain-specific document context.
+Developed by Sagar Naduvinkeri
+
+**📌 Overview**
+
+This project implements a local Retrieval-Augmented Generation (RAG) architecture that enables natural language querying over custom documents—no SQL needed. It uses the LLaMA 3.2 model from Ollama, HuggingFace sentence embeddings, and ChromaDB for vector storage and retrieval.
+
+This setup allows you to ask context-aware questions that are answered using your own knowledge base (e.g., PDFs or text files).
 
 **🔍 Problem Statement**
+
 Traditional LLMs lack access to real-time, proprietary, or niche knowledge unless fine-tuned or augmented. This project solves that by enabling contextual question answering via local document embedding and retrieval.
 
-**⚙️ Technologies Used**
-LLaMA 3.2 via Ollama
+📂 **Project Structure**
 
-HuggingFace Sentence Transformers
+├── `ragcreate.py` – Script to create and persist vector DB from documents  
+├── `ragrun.py` – Script to query the knowledge base with LLaMA + Chroma  
+├── `chroma_db/` – Auto-generated ChromaDB directory storing embeddings  
+├── `knowledge_docs/` – Folder containing PDFs or text files used as knowledge base  
+├── `README.md` – Project documentation (this file)  
+└── `requirements.txt` – Python dependencies  
 
-ChromaDB for vector storage and retrieval
 
-Python (venv environment)
+**⚙️ Tech Stack**
 
-transformers, accelerate, sentence-transformers
+🧠 **LLM**: LLaMA 3.2 via Ollama
 
-(Optional) Phi model for benchmarking
+📚 **Embedding**: HuggingFace (sentence-transformers)
 
-Prompt engineering using PromptTemplate
+🗃️ **Vector DB:** ChromaDB
 
-**📂 Project Structure**
-bash
+🐍 **Environment**: Python 3.10+ with virtualenv
+
+**🚀 Setup Instructions**
+
+1. Clone the Repository
+
+**2. Set Up Python Virtual Environment**
+
+python
 Copy
 Edit
-.
-├── ragrun.py                  # Main script to run RAG queries
-├── chroma_db/                 # Folder storing persisted vector database
-├── knowledge_docs/            # Input PDFs or documents for embedding
-├── persistent_client.py       # Persistent client for querying system
-├── snapshots/                 # Screenshots and outputs for documentation
-├── README.md                  # This file
-└── requirements.txt           # Python dependencies
-**🛠️ Setup Instructions**
-Create a virtual environment:
+# Create a virtual environment
+python -m venv venv
 
-bash
-Copy
-Edit
-python -m venv rag_env
-source rag_env/bin/activate  # On Windows use rag_env\Scripts\activate
-Install dependencies:
+# Activate the environment
+source venv/bin/activate       # Windows: venv\Scripts\activate
 
-bash
-Copy
-Edit
+# Install required dependencies
 pip install -r requirements.txt
-Start Ollama & LLaMA model:
 
-bash
-Copy
-Edit
+**3. Start the LLaMA Model with Ollama**
+
+# Make sure Ollama is installed
 ollama run llama3
-Run the script:
 
-bash
-Copy
-Edit
+**4. Prepare the Knowledge Base**
+
+# Place your documents (PDF or TXT) into the 'knowledge_docs/' folder
+# Then run the following script to embed and store vectors in ChromaDB
+python ragcreate.py
+
+🔹 This will:
+
+Load and embed your documents
+
+Persist the vectors into the chroma_db/ folder
+
+**5. Ask Questions via the RAG System**
+
+# Run this to start querying the knowledge base
 python ragrun.py
-**📚 How It Works**
-Documents are embedded using HuggingFace transformers.
 
-ChromaDB stores the vectors.
+💬 **Sample Queries**
 
-When a user types a query, the top-k similar document chunks are retrieved.
+Examples of questions you can ask after loading your documents:
 
-These chunks are appended as context for the LLaMA model to generate an informed response.
+“What are the topics covered in the syllabus?”
 
-**💡 Key Learnings**
-Importance of managing dependencies in virtual environments.
+“Summarize key points from document X.”
 
-Debugging LLM setup issues (e.g., init_empty_weights error).
+“What is the University at Buffalo known for?”
 
-Fine-tuning context memory vs. performance trade-offs.
+The system uses ChromaDB to find contextually relevant chunks and feeds them into LLaMA to generate precise, natural-language responses.
 
-Using prompt engineering to refine LLM responses.
+✅**Features**
 
-**🧪 Sample Queries & Outputs**
-“What topics does this class cover?” → Initially blank, later populated after adding the syllabus PDF to knowledge base.
+🔍 **Natural language querying over local files**
 
-“Where is University at Buffalo?” → Quick response.
+🧠 **Context-aware responses powered by LLaMA**
 
-“Who is the mascot of University at Buffalo?” → Answer with source reference from uploaded content.
+📦 **Local vector storage with ChromaDB (no cloud dependency)**
 
-Added a custom PromptTemplate for better response structuring.
+🧪 **Prompt engineering using PromptTemplate for enhanced precision**
 
-**⚠️ Known Issues**
-Some models (e.g., Phi) time out on large context prompts.
+💾 **Modular code split into creation (ragcreate.py) and querying (ragrun.py)**
 
-High latency observed with larger knowledge bases.
+**🛠️ Troubleshooting**
 
-**🚀 Future Improvements**
-Add GUI with Streamlit or Gradio
+Model errors? Make sure transformers, accelerate, and sentence-transformers are updated.
 
-Enable multi-file indexing and file upload via WebUI
+Slow response? Large knowledge bases increase retrieval latency.
 
-Integrate document chunking and ranking strategies for better precision
+Vector index issues? Delete and regenerate chroma_db/ using ragcreate.py.
+
+**🧠 Key Learnings**
+
+The importance of managing dependencies with a virtual environment.
+
+How to build scalable, modular architectures for RAG-based LLMs.
+
+Understanding trade-offs between precision, speed, and memory usage.
+
+**📌 Future Improvements**
+
+Add Web UI using Streamlit or Gradio
+
+Support for real-time file uploads
+
+Use of chunking and ranking strategies for large corpora
+
+Add logging and response traceability
+
+
+
+
